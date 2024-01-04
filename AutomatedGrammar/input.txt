@@ -1,13 +1,14 @@
-3
-S B C
-3
-a b c
+4
+S A B C
+4
+a b c @
 S
-7
-S aSBC
-S aBC
-CB BC
-bB bb
-bC bc
-cC Cc
-aB ab
+8
+S aA
+A bA
+A aB
+B cB
+B bC
+C aC
+C bS
+C @

@@ -19,6 +19,10 @@ class Grammar {
 	bool checkProductionsLeftNonTerminal() const;
 	bool checkProductionValidCharacters() const;
 	bool checkProductionWithS() const;
+
+	bool checkRegularLeft(const std::string& left) const;
+	bool checkRegularRight(const std::string& right) const;
+	bool checkRegularS(const Production& production) const;
 public:
 	Grammar();
 	Grammar(const std::set<char>& VN, const std::set<char>& VT, const std::set<Production>& P, char S);
@@ -36,4 +40,5 @@ public:
 
 	const std::set<std::string>& generateWords(int nrWords);
 	bool isValid() const;
+	bool isRegular() const;
 };

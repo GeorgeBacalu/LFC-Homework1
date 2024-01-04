@@ -10,8 +10,11 @@ int main() {
 	}
 	fin >> grammar;
 	std::cout << grammar;
-	if (grammar.isValid())
-		grammar.generateWords(3);
-	else
-		std::cout << "Invalid grammar!\n";
+	if (grammar.isValid()) {
+		std::cout << "Grammar is valid\n";
+		if (grammar.isRegular()) {
+			std::cout << "Grammar is regular\n\n";
+			grammar.generateWords(3);
+		}
+	}
 }

@@ -1,0 +1,127 @@
+isValid()
+
+Grammar with empty VN or VT:
+
+1
+S
+0
+S
+0
+
+Grammar with common characters between VN and VT:
+
+2
+S A
+2
+A a
+S
+2
+S A
+A a
+
+Grammar that does not contain S in the set of VN:
+
+1
+A
+2
+a b
+-
+1
+A a
+
+Grammar without productions containing only the start symbol on the left:
+
+2
+S A
+2
+a b
+S
+1
+S a
+a b
+
+Grammar containing invalid characters in productions:
+
+2
+S A
+1
+a
+S
+2
+S a
+A b
+
+Grammar that does not contain only S on the left:
+
+2
+S A
+1
+a
+S
+1
+SA a
+
+Valid grammar:
+
+2
+S A
+3
+a b @
+S
+3
+S aA
+A b
+Ab @
+
+isRegular()
+
+Grammar with incorrect left part of productions:
+
+2
+S A
+2
+a b
+S
+2
+S a
+Aa b
+
+Grammar with incorrect right part of productions:
+
+2
+S A
+2
+a b
+S
+2
+S Aa
+A a
+
+Grammar with S -> @ followed by a production with S in the right part:
+
+2
+S A
+3
+a b @
+S
+3
+S aA
+S @
+A bS
+
+Regular grammar:
+
+4
+S A B C
+4
+a b c @
+S
+8
+S aA
+A bA
+A aB
+B cB
+B bC
+C aC
+C bS
+C @

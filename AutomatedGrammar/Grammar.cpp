@@ -168,3 +168,40 @@ bool Grammar::checkProductionWithS() const {
 		std::cout << "Invalid grammar: no production with left side S!\n";
 	return existsProductionWithS;
 }
+
+bool Grammar::isRegular() const {
+	for (const auto& [left, right] : m_P)
+		if (!(checkRegularLeft(left) || checkRegularRight(right) || checkRegularS({ left, right })))
+			return false;
+	return true;
+}
+
+bool Grammar::checkRegularLeft(const std::string& left) const {
+	bool hasNonTerminalLeft = left.size() == 1 && m_VN.find(left[0]) != m_VN.end();
+	if (!hasNonTerminalLeft) {
+		std::cout << "Non regular grammar: left side must have only one non-terminal!\n";
+		return false;
+	}
+	return true;
+}
+
+bool Grammar::checkRegularRight(const std::string& right) const {
+	bool hasTerminalRight = right.size() == 1 && m_VT.find(right[0]) != m_VT.end();
+	bool hasTerminalNonTerminalRight = right.size() == 2 && m_VT.find(right[0]) != m_VT.end() && m_VN.find(right[1]) != m_VN.end();
+	if (!(hasTerminalRight || hasTerminalNonTerminalRight || right != "@")) {
+		std::cout << "Non regular grammar: right side must have one terminal / one terminal + one non-terminal / null (lambda)!\n";
+		return false;
+	}
+	return true;
+}
+
+bool Grammar::checkRegularS(const Production& production) const {
+	const auto& [left, right] = production;
+	if (right == "@" && left[0] == m_S)
+		for (const auto& [_, right1] : m_P)
+			if (right1.find(m_S) != std::string::npos) {
+				std::cout << "Non regular grammar: S can't be on the right side if production S->@ exists!\n";
+				return false;
+			}
+	return true;
+}
