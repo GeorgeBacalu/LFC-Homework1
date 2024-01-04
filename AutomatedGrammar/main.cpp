@@ -1,6 +1,5 @@
 #include <fstream>
 #include "Grammar.h"
-#include "FiniteAutomaton.h"
 
 int main() {
 	Grammar grammar;
@@ -27,10 +26,11 @@ int main() {
 	finFA >> finiteAutomaton;
 	if (finiteAutomaton.isValid()) {
 		std::cout << finiteAutomaton;
-		std::cout << finiteAutomaton.isDeterministic();
+		finiteAutomaton.isDeterministic();
 		std::string word;
 		std::cout << "Enter word to check: ";
 		std::cin >> word;
 		std::cout << "Word is" << (finiteAutomaton.checkWord(finiteAutomaton.GetInitialState(), word) ? " " : " not ") << "accepted!\n";
 	}
+	std::cout << "Grammar -> Finite Automaton: " << grammar.convertToFiniteAutomaton();
 }

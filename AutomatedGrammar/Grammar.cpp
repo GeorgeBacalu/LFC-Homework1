@@ -205,3 +205,33 @@ bool Grammar::checkRegularS(const Production& production) const {
 			}
 	return true;
 }
+
+FiniteAutomaton Grammar::convertToFiniteAutomaton() const {
+	if (!isRegular()) {
+		std::cout << "Non regular grammar\n";
+		return FiniteAutomaton();
+	}
+	FiniteAutomaton finiteAutomaton;
+	std::set<std::string> states;
+	std::set<std::string> finalStates;
+	Transition transition;
+	for (char nonTerminal : m_VN)
+		states.insert(std::string{ nonTerminal });
+	states.insert("T");
+	for (const auto& [left, right] : m_P) {
+		std::string currentState{ left };
+		char symbol = right[0];
+		std::string nextState = right.size() == 2 ? std::string{ right[1] } : "T";
+		transition[{currentState, symbol}].push_back(nextState);
+		if (right.size() == 1)
+			finalStates.insert(currentState);
+	}
+	if (!finalStates.empty())
+		finalStates.insert("T");
+	finiteAutomaton.SetStates(states);
+	finiteAutomaton.SetAlphabet(m_VT);
+	finiteAutomaton.SetInitialState(std::string{ m_S });
+	finiteAutomaton.SetFinalStates(finalStates);
+	finiteAutomaton.SetTransition(transition);
+	return finiteAutomaton;
+}

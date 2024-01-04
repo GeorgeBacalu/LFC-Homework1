@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <set>
+#include "FiniteAutomaton.h"
 
 using Production = std::pair<std::string, std::string>;
 
@@ -41,4 +42,5 @@ public:
 	const std::set<std::string>& generateWords(int nrWords);
 	bool isValid() const;
 	bool isRegular() const;
+	FiniteAutomaton convertToFiniteAutomaton() const;
 };
