@@ -25,8 +25,11 @@ int main() {
 		}
 	}
 	finFA >> finiteAutomaton;
-	if (finiteAutomaton.isValid())
+	if (finiteAutomaton.isValid()) {
 		std::cout << finiteAutomaton;
-	else
-		std::cout << "Invalid automaton!\n";
+		std::string word;
+		std::cout << "Enter word to check: ";
+		std::cin >> word;
+		std::cout << "Word is" << (finiteAutomaton.checkWord(finiteAutomaton.GetInitialState(), word) ? " " : " not ") << "accepted!\n";
+	}
 }

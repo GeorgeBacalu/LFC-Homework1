@@ -38,4 +38,5 @@ public:
 	void SetTransition(const Transition& transition);
 
 	bool isValid() const;
+	bool checkWord(const std::string& currentState, const std::string& word) const;
 };

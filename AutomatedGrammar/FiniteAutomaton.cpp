@@ -72,7 +72,7 @@ std::ostream& operator<<(std::ostream& out, const FiniteAutomaton& finiteAutomat
 		for (const auto& nextState : value)
 			out << " (" << currentState << ", " << symbol << ") -> " << nextState << "\n";
 	}
-	return out;
+	return out << "\n";
 }
 
 bool FiniteAutomaton::isValid() const {
@@ -142,4 +142,15 @@ bool FiniteAutomaton::checkValidTransition() const {
 			}
 	}
 	return true;
+}
+
+bool FiniteAutomaton::checkWord(const std::string& currentState, const std::string& word) const {
+	if(word.empty())
+		return m_finalStates.find(currentState) != m_finalStates.end();
+	char symbol = word[0];
+	for (const auto& [_, nextStates] : m_transition)
+		for (const auto& nextState : nextStates)
+			if (checkWord(nextState, word.substr(1)))
+				return true;
+	return false;
 }
