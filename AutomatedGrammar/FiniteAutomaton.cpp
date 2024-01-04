@@ -145,7 +145,7 @@ bool FiniteAutomaton::checkValidTransition() const {
 }
 
 bool FiniteAutomaton::checkWord(const std::string& currentState, const std::string& word) const {
-	if(word.empty())
+	if (word.empty())
 		return m_finalStates.find(currentState) != m_finalStates.end();
 	char symbol = word[0];
 	for (const auto& [_, nextStates] : m_transition)
@@ -153,4 +153,21 @@ bool FiniteAutomaton::checkWord(const std::string& currentState, const std::stri
 			if (checkWord(nextState, word.substr(1)))
 				return true;
 	return false;
+}
+
+bool FiniteAutomaton::isDeterministic() const {
+	for (const auto& state : m_states)
+		for (const auto& symbol : m_alphabet) {
+			if (m_transition.find({ state, symbol }) == m_transition.end()) {
+				std::cout << "Non-deterministic automaton: missing transition for state " << state << " and symbol " << symbol << "!\n";
+				return false;
+			}
+			const auto& nextStates = m_transition.find({ state, symbol })->second;
+			if (nextStates.size() > 1) {
+				std::cout << "Non-deterministic automaton: multiple transitions for state " << state << " and symbol " << symbol << "!\n";
+				return false;
+			}
+		}
+	std::cout << "Deterministic automaton!\n";
+	return true;
 }

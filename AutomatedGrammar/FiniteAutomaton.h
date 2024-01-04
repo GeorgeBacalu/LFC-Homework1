@@ -39,4 +39,5 @@ public:
 
 	bool isValid() const;
 	bool checkWord(const std::string& currentState, const std::string& word) const;
+	bool isDeterministic() const;
 };

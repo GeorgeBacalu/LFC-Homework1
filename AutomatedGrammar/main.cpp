@@ -27,6 +27,7 @@ int main() {
 	finFA >> finiteAutomaton;
 	if (finiteAutomaton.isValid()) {
 		std::cout << finiteAutomaton;
+		std::cout << finiteAutomaton.isDeterministic();
 		std::string word;
 		std::cout << "Enter word to check: ";
 		std::cin >> word;
