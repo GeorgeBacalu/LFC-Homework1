@@ -12,6 +12,13 @@ class Grammar {
 	std::set<Production> m_P;
 	char m_S;
 	std::set<std::string> m_generatedWords;
+
+	bool checkNonEmptySets() const;
+	bool checkDisjunctVNVT() const;
+	bool checkSInVN() const;
+	bool checkProductionsLeftNonTerminal() const;
+	bool checkProductionValidCharacters() const;
+	bool checkProductionWithS() const;
 public:
 	Grammar();
 	Grammar(const std::set<char>& VN, const std::set<char>& VT, const std::set<Production>& P, char S);
@@ -28,4 +35,5 @@ public:
 	void SetS(char S);
 
 	const std::set<std::string>& generateWords(int nrWords);
+	bool isValid() const;
 };

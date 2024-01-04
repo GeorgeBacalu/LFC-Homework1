@@ -96,3 +96,75 @@ const std::set<std::string>& Grammar::generateWords(int nrWords) {
 	}
 	return m_generatedWords;
 }
+
+bool Grammar::isValid() const {
+	return checkNonEmptySets() && checkDisjunctVNVT() && checkSInVN() && checkProductionsLeftNonTerminal() && checkProductionValidCharacters() && checkProductionWithS();
+}
+
+bool Grammar::checkNonEmptySets() const {
+	if (m_VN.empty() || m_VT.empty()) {
+		std::cout << "Invalid grammar: VN or VT is empty!\n";
+		return false;
+	}
+	return true;
+}
+
+bool Grammar::checkDisjunctVNVT() const {
+	for (char nonTerminal : m_VN)
+		if (m_VT.find(nonTerminal) != m_VT.end()) {
+			std::cout << "Invalid grammar: VN characters are in VT!\n";
+			return false;
+		}
+	for (char terminal : m_VT)
+		if (m_VN.find(terminal) != m_VN.end()) {
+			std::cout << "Invalid grammar: VT characters are in VN!\n";
+			return false;
+		}
+	return true;
+}
+
+bool Grammar::checkSInVN() const {
+	if (m_VN.find(m_S) == m_VN.end()) {
+		std::cout << "Invalid grammar: S is not in VN!\n";
+		return false;
+	}
+	return true;
+}
+
+bool Grammar::checkProductionsLeftNonTerminal() const {
+	bool hasNonTerminal;
+	for (const auto& [left, _] : m_P) {
+		hasNonTerminal = false;
+		for (char nonTerminal : m_VN) {
+			if (left.find(nonTerminal) != std::string::npos) {
+				hasNonTerminal = true;
+				break;
+			}
+		}
+		if (!hasNonTerminal) {
+			std::cout << "Invalid grammar: production without left side non-terminal!\n";
+			return false;
+		}
+	}
+	return true;
+}
+
+bool Grammar::checkProductionValidCharacters() const {
+	for (const auto& [left, right] : m_P)
+		for (char symbol : left + right)
+			if (m_VN.find(symbol) == m_VN.end() && m_VT.find(symbol) == m_VT.end()) {
+				std::cout << "Invalid grammar: production with invalid characters!\n";
+				return false;
+			}
+	return true;
+}
+
+bool Grammar::checkProductionWithS() const {
+	bool existsProductionWithS = false;
+	for (const auto& [left, _] : m_P)
+		if (left[0] == m_S && left.size() == 1)
+			existsProductionWithS = true;
+	if (!existsProductionWithS)
+		std::cout << "Invalid grammar: no production with left side S!\n";
+	return existsProductionWithS;
+}
