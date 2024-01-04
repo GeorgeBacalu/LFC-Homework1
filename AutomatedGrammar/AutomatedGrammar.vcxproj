@@ -128,13 +128,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FiniteAutomaton.cpp" />
     <ClCompile Include="Grammar.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt" />
+    <Text Include="C:\Users\George\OneDrive\Desktop\testG.txt" />
+    <Text Include="inputFA.txt" />
+    <Text Include="inputG.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FiniteAutomaton.h" />
     <ClInclude Include="Grammar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

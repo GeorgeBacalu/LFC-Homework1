@@ -25,20 +25,20 @@ void Grammar::SetS(char S) { m_S = S; }
 std::istream& operator>>(std::istream& in, Grammar& grammar) {
 	int nrNonTerminals, nrTerminals, nrProductions;
 	in >> nrNonTerminals;
-	for (int i = 0; i < nrNonTerminals; ++i) {
+	for (size_t i = 0; i < nrNonTerminals; ++i) {
 		char nonTerminal;
 		in >> nonTerminal;
 		grammar.m_VN.insert(nonTerminal);
 	}
 	in >> nrTerminals;
-	for (int i = 0; i < nrTerminals; ++i) {
+	for (size_t i = 0; i < nrTerminals; ++i) {
 		char terminal;
 		in >> terminal;
 		grammar.m_VT.insert(terminal);
 	}
 	in >> grammar.m_S >> nrProductions;
 	std::string left, right;
-	for (int i = 0; i < nrProductions; ++i) {
+	for (size_t i = 0; i < nrProductions; ++i) {
 		in >> left >> right;
 		grammar.m_P.emplace(left, right);
 	}

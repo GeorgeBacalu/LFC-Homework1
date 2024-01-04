@@ -21,14 +21,26 @@
     <ClCompile Include="Grammar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FiniteAutomaton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
+    <Text Include="inputG.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="C:\Users\George\OneDrive\Desktop\testG.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="inputFA.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grammar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FiniteAutomaton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
