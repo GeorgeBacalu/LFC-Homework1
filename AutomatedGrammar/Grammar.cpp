@@ -1,4 +1,6 @@
 #include "Grammar.h"
+#include <vector>
+#include <random>
 
 Grammar::Grammar() : m_VN{}, m_VT{}, m_P{}, m_S{ 'S' } {}
 
@@ -54,5 +56,43 @@ std::ostream& operator<<(std::ostream& out, const Grammar& grammar) {
 	for (const auto& [left, right] : grammar.m_P)
 		if (!left.empty())
 			out << left << " -> " << right << "\n";
-	return out;
+	return out << "\n";
+}
+
+const std::set<std::string>& Grammar::generateWords(int nrWords) {
+	std::string generatedWord;
+	std::random_device rd;
+	std::mt19937 eng(rd());
+	m_generatedWords.clear();
+	while (m_generatedWords.size() < nrWords) {
+		generatedWord = std::string{ m_S };
+		while (true) {
+			std::set<Production> applicableProductions;
+			for (const auto& production : m_P)
+				if (generatedWord.find(production.first) != std::string::npos)
+					applicableProductions.insert(production);
+			if (applicableProductions.empty()) {
+				m_generatedWords.insert(generatedWord);
+				break;
+			}
+			std::uniform_int_distribution<int> distribution(0, applicableProductions.size() - 1);
+			size_t productionIndex = distribution(eng);
+			auto it = applicableProductions.begin();
+			std::advance(it, productionIndex);
+			const auto& [left, right] = *it; // selected production
+			// choose random position to apply production
+			std::vector<size_t> possiblePositions;
+			size_t position = generatedWord.find(left);
+			while (position != std::string::npos) {
+				possiblePositions.push_back(position);
+				position = generatedWord.find(left, position + 1);
+			}
+			std::uniform_int_distribution<int> distribution2(0, possiblePositions.size() - 1);
+			size_t replacePosition = possiblePositions[distribution2(eng)];
+			std::cout << generatedWord << " => ";
+			generatedWord.replace(replacePosition, left.length(), right == "@" ? "" : right);
+		}
+		std::cout << generatedWord << "\n\n";
+	}
+	return m_generatedWords;
 }

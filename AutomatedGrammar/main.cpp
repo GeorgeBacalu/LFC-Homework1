@@ -10,4 +10,5 @@ int main() {
 	}
 	fin >> grammar;
 	std::cout << grammar;
+	grammar.generateWords(3);
 }

@@ -11,6 +11,7 @@ class Grammar {
 	std::set<char> m_VT;
 	std::set<Production> m_P;
 	char m_S;
+	std::set<std::string> m_generatedWords;
 public:
 	Grammar();
 	Grammar(const std::set<char>& VN, const std::set<char>& VT, const std::set<Production>& P, char S);
@@ -25,4 +26,6 @@ public:
 	void SetVT(const std::set<char>& VT);
 	void SetP(const std::set<Production>& P);
 	void SetS(char S);
+
+	const std::set<std::string>& generateWords(int nrWords);
 };
