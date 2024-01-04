@@ -25,5 +25,8 @@ int main() {
 		}
 	}
 	finFA >> finiteAutomaton;
-	std::cout << finiteAutomaton;
+	if (finiteAutomaton.isValid())
+		std::cout << finiteAutomaton;
+	else
+		std::cout << "Invalid automaton!\n";
 }

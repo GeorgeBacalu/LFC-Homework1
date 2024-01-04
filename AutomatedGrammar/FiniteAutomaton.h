@@ -14,6 +14,12 @@ class FiniteAutomaton {
 	std::string m_initialState;
 	std::set<std::string> m_finalStates;
 	Transition m_transition;
+
+	bool checkNonEmptyStates() const;
+	bool checkNonEmptyAlphabet() const;
+	bool checkValidInitialState() const;
+	bool checkValidFinalStates() const;
+	bool checkValidTransition() const;
 public:
 	FiniteAutomaton();
 	FiniteAutomaton(const std::set<std::string>& states, const std::set<char>& alphabet, const std::string& initialState, const std::set<std::string>& finalStates, const Transition& transition);
@@ -30,4 +36,6 @@ public:
 	void SetInitialState(const std::string& initialState);
 	void SetFinalStates(const std::set<std::string>& finalStates);
 	void SetTransition(const Transition& transition);
+
+	bool isValid() const;
 };
